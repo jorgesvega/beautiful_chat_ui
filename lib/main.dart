@@ -40,6 +40,13 @@ class ChatScreenState extends State<ChatScreen> {
   Widget _buildTextComposer() {
     return new IconTheme(
       // Icons inherit their color, oppacity and size from an 'IconTheme' widget, which uses an IconThemeData object to define their characteristics.
+      /*
+      Note from tutorial author:
+      A BuildContext object is a handle to the location of a widget in your app's widget tree. 
+      Each widget has its own BuildContext, which becomes the parent of the widget returned by the StatelessWidget.build or State.build function. 
+      This means the _buildTextComposer() method can access the BuildContext object from its encapsulating State object; 
+      you don't need to pass the context to the method explicitly.
+      */
       data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
         margin: const EdgeInsets.symmetric(
