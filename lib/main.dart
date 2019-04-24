@@ -26,7 +26,9 @@ class FriendlychatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: "Friendlychat",
-      theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : kDefaultTheme,
+      theme: defaultTargetPlatform == TargetPlatform.iOS
+          ? kIOSTheme
+          : kDefaultTheme,
       home: new ChatScreen(),
     );
   }
@@ -60,44 +62,40 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
          */
       ),
       body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Flexible(
-              // This tells the framework to let the list of messages expand to fill the Column height while TextField remains a fixed size.
-              child: new ListView.builder(
-                //We choose the ListView.builder constructor because the default constructor doesn't automatically detect mutations of its children argument.
-                padding: new EdgeInsets.all(
-                    8.0), // For white space around the message list
-                reverse:
-                    true, // to make the ListView start from the bottom of the screen
-                itemBuilder: (_, int index) => _messages[
-                    index], //itemBuilder for a function that builds each widget in [index]. Since we don't need the current build context, we can ignore the first argument of IndexedWidgetBuilder (convention: _)
-                itemCount: _messages
-                    .length, // to specify the number of messages in the list
+          child: new Column(
+            children: <Widget>[
+              new Flexible(
+                // This tells the framework to let the list of messages expand to fill the Column height while TextField remains a fixed size.
+                child: new ListView.builder(
+                  //We choose the ListView.builder constructor because the default constructor doesn't automatically detect mutations of its children argument.
+                  padding: new EdgeInsets.all(
+                      8.0), // For white space around the message list
+                  reverse:
+                      true, // to make the ListView start from the bottom of the screen
+                  itemBuilder: (_, int index) => _messages[
+                      index], //itemBuilder for a function that builds each widget in [index]. Since we don't need the current build context, we can ignore the first argument of IndexedWidgetBuilder (convention: _)
+                  itemCount: _messages
+                      .length, // to specify the number of messages in the list
+                ),
               ),
-            ),
-            new Divider(
-                height:
-                    1.0), // To draw a horizontal rule between the UI for displaying messages and the text input field for composing messages.
-            new Container(
-              // Container as a parent of the text composer. It's useful to define background images, padding, margins and another common layout details.
-              decoration: new BoxDecoration(
-                  // Use decoration to create a new BoxDecoration object that defines the background.
-                  color: Theme.of(context).cardColor),
-              child:
-                  _buildTextComposer(), // Tells the app how to display the text input user control,
-            ),
-          ],
-        ),
-        decoration: Theme.of(context).platform == TargetPlatform.iOS ? new BoxDecoration(
-          border: new Border(
-            top: new BorderSide(
-              color: Colors.grey[200]
-            )
-          )
-        )
-            : null
-      ),
+              new Divider(
+                  height:
+                      1.0), // To draw a horizontal rule between the UI for displaying messages and the text input field for composing messages.
+              new Container(
+                // Container as a parent of the text composer. It's useful to define background images, padding, margins and another common layout details.
+                decoration: new BoxDecoration(
+                    // Use decoration to create a new BoxDecoration object that defines the background.
+                    color: Theme.of(context).cardColor),
+                child:
+                    _buildTextComposer(), // Tells the app how to display the text input user control,
+              ),
+            ],
+          ),
+          decoration: Theme.of(context).platform == TargetPlatform.iOS
+              ? new BoxDecoration(
+                  border:
+                      new Border(top: new BorderSide(color: Colors.grey[200])))
+              : null),
     );
   }
 
@@ -140,16 +138,19 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ),
             new Container(
               margin: new EdgeInsets.symmetric(horizontal: 4.0),
-              child: Theme.of(context).platform == TargetPlatform.iOS ?
-                  new CupertinoButton(
+              child: Theme.of(context).platform == TargetPlatform.iOS
+                  ? new CupertinoButton(
                       child: new Text('Send'),
-                      onPressed: _isComposing ? () => _handleSummited(_textController.text) : null
-                  ) :
-              new IconButton(
-                icon: new Icon(Icons
-                    .send), // The color of the button is black, from the default Material Design Theme. To give the icons in your app an accent color, pass the color argument to IconButton. Alternatively, you can apply a different theme.
-                onPressed: _isComposing ? () => _handleSummited(_textController.text) : null, // Fat Arrow Function Declaration, shorthand of Dart
-              ),
+                      onPressed: _isComposing
+                          ? () => _handleSummited(_textController.text)
+                          : null)
+                  : new IconButton(
+                      icon: new Icon(Icons
+                          .send), // The color of the button is black, from the default Material Design Theme. To give the icons in your app an accent color, pass the color argument to IconButton. Alternatively, you can apply a different theme.
+                      onPressed: _isComposing
+                          ? () => _handleSummited(_textController.text)
+                          : null, // Fat Arrow Function Declaration, shorthand of Dart
+                    ),
             ),
           ],
         ),
@@ -233,23 +234,23 @@ class ChatMessage extends StatelessWidget {
             Here it constrains the width of the Text widget, which is normally determined by its contents.
              */
             new Expanded(
-                child: new Column(
-                  // For messages, the parent is a Colum widget whose main axis is vertical, so CrossAxisAlignment.start aligns the text at the furthest left position along the horizontal axis.
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // Align two Text widgets vertically to display the sender's name on top and the text of the message below.
-                  children: <Widget>[
-                    new Text(_name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .subhead), // Style sender's name and make it larger that the message text
-                    // Theme.of(context) obtains an appropiate ThemeData object.
-                    // If you havent's specified a theme for this app Theme.of(context) will retrieve the default Flutter theme.
-                    new Container(
-                      margin: const EdgeInsets.only(top: 5.0),
-                      child: new Text(text),
-                    ),
-                  ],
-                ),
+              child: new Column(
+                // For messages, the parent is a Colum widget whose main axis is vertical, so CrossAxisAlignment.start aligns the text at the furthest left position along the horizontal axis.
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // Align two Text widgets vertically to display the sender's name on top and the text of the message below.
+                children: <Widget>[
+                  new Text(_name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subhead), // Style sender's name and make it larger that the message text
+                  // Theme.of(context) obtains an appropiate ThemeData object.
+                  // If you havent's specified a theme for this app Theme.of(context) will retrieve the default Flutter theme.
+                  new Container(
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: new Text(text),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
